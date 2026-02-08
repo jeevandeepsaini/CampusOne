@@ -1,216 +1,250 @@
-# 🚀 CampusOne - Quick Setup Checklist
+# 🎓 CampusOne - Smart Campus Solution
 
-## ✅ Step 1: Gradle Configuration (COMPLETED ✓)
+> A comprehensive mobile application designed to streamline campus operations, enhance communication, and improve the overall campus experience.
 
-All Gradle files have been updated with:
-- ✅ Firebase BOM 33.7.0
-- ✅ Firebase Authentication
-- ✅ Firebase Firestore  
-- ✅ Navigation Compose 2.8.5
-- ✅ ViewModel Compose 2.10.0
-- ✅ Coroutines 1.9.0
-- ✅ Google Services Plugin 4.4.2
+[![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://www.android.com/)
+[![Language](https://img.shields.io/badge/Language-Kotlin-blue.svg)](https://kotlinlang.org/)
+[![Framework](https://img.shields.io/badge/Framework-Jetpack%20Compose-orange.svg)](https://developer.android.com/jetpack/compose)
+[![Firebase](https://img.shields.io/badge/Backend-Firebase-yellow.svg)](https://firebase.google.com/)
+
+**Submitted for:** Great Indian Hackathon 2026  
+**Developer:** Jeevandeep Saini (GIH020JEE)  
+**Institution:** The NorthCap University
 
 ---
 
-## 📋 Step 2: Firebase Console Setup (DO THIS NOW)
+## 📱 About
 
-### Quick Steps:
+CampusOne is a modern Android application built with Jetpack Compose that solves real campus problems through digital solutions. The app provides role-based access for Students, Professors, and Administrators with features tailored to each user type.
 
-1. **Go to:** https://console.firebase.google.com/
+---
 
-2. **Create/Select Project:** "CampusOne"
+## ✨ Key Features
 
-3. **Add Android App:**
+### 🔐 **Authentication & User Management**
+- Firebase Email/Password authentication
+- Role-based access control (Student/Professor/Admin)
+- Secure user management with Firestore
+
+### 🚨 **Emergency SOS**
+- Quick access to campus emergency contacts (Security, Medical, Warden)
+- One-tap direct dial functionality
+- Campus location on Google Maps
+- National emergency numbers (100, 101, 102, 112)
+
+### 📝 **Issue Reporting System**
+- **Students/Professors:**
+  - Report campus problems (Infrastructure, Hygiene, Security, Network, Other)
+  - Track personal report history
+  - View report status in real-time
+- **Admins:**
+  - View ALL campus reports
+  - Update status (Pending → In Progress → Resolved)
+  - Real-time statistics dashboard
+
+### 📢 **Announcements System**
+- View campus-wide announcements
+- Admin controls for creation/deletion
+- Real-time updates across all devices
+
+### 👨‍💼 **Admin Dashboard**
+- Comprehensive admin interface
+- Report management and statistics
+- Professional Material3 design
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technologies |
+|----------|-------------|
+| **Language** | Kotlin |
+| **UI Framework** | Jetpack Compose |
+| **Design System** | Material Design 3 |
+| **Navigation** | Navigation Compose |
+| **Architecture** | MVVM + Repository Pattern |
+| **Async** | Kotlin Coroutines & Flow |
+| **State Management** | StateFlow, collectAsStateWithLifecycle |
+| **Backend** | Firebase Authentication, Cloud Firestore |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Android Studio Hedgehog (2023.1.1) or later
+- JDK 17 or higher
+- Android SDK (API 24 minimum)
+- Firebase account
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jeevandeepsaini/CampusOne.git
+   cd CampusOne
+   ```
+
+2. **Firebase Setup** (IMPORTANT!)
+   
+   a. Create Firebase Project:
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Create project: "CampusOne"
+   
+   b. Add Android App:
    - Package name: `com.gih.campusone`
    - Download `google-services.json`
-   - **Place file here:** `CampusOne/app/google-services.json`
+   - Place in: `app/google-services.json`
+   
+   c. Enable Services:
+   - **Authentication:** Enable Email/Password
+   - **Firestore Database:** Create database
+   
+   d. Configure Security Rules (see below)
+   
+   e. Create Indexes (see below)
 
-4. **Enable Authentication:**
-   - Go to: Build → Authentication → Get Started
-   - Enable: Email/Password sign-in method
-
-5. **Enable Firestore:**
-   - Go to: Build → Firestore Database → Create Database
-   - Start in: Test Mode (for development)
-   - Choose: Closest location
+3. **Build and Run**
+   ```bash
+   ./gradlew build
+   ```
 
 ---
 
-## 🔄 Step 3: Sync & Build
+## 🔒 Firebase Configuration
 
-In Android Studio:
+### Security Rules
 
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    match /reports/{reportId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null && 
+                    request.auth.token.email in ['admin@gih.edu', 'admin@campus.edu'];
+    }
+    
+    match /announcements/{announcementId} {
+      allow read: if request.auth != null;
+      allow create, delete: if request.auth != null && 
+                             request.auth.token.email in ['admin@gih.edu', 'admin@campus.edu'];
+    }
+  }
+}
 ```
-1. Place google-services.json in app/ folder
-2. Click "Sync Now" banner
-3. Wait for sync to complete
-4. Build → Rebuild Project
+
+### Required Indexes
+
+**Index 1 - My Reports:**
+- Collection ID: `reports`
+- Fields: `createdByUid` (Ascending), `createdAt` (Descending)
+
+**Index 2 - All Reports:**
+- Collection ID: `reports`
+- Fields: `status` (Ascending), `createdAt` (Descending)
+
+---
+
+## 👥 User Roles
+
+| Feature | Student | Professor | Admin |
+|---------|---------|-----------|-------|
+| Emergency SOS | ✅ | ✅ | ✅ |
+| Create Reports | ✅ | ✅ | ✅ |
+| View My Reports | ✅ | ✅ | ✅ |
+| View Announcements | ✅ | ✅ | ✅ |
+| View All Reports | ❌ | ❌ | ✅ |
+| Update Report Status | ❌ | ❌ | ✅ |
+| Create/Delete Announcements | ❌ | ❌ | ✅ |
+
+**Admin Emails:** `admin@gih.edu`, `admin@campus.edu`
+
+---
+
+## 🧪 Testing
+
+### Test Accounts
 ```
-
-**Expected Gradle Sync Time:** 2-5 minutes (first time)
-
----
-
-## ✅ Step 4: Verify Setup
-
-Check these in Android Studio:
-
-- [ ] No red errors in Gradle files
-- [ ] "Build successful" message in Build tab
-- [ ] `google-services.json` visible in app folder
-- [ ] Firebase Authentication enabled in console
-- [ ] Firestore database created in console
-
----
-
-## 🎨 Step 5: Generate Code (TYPE "go")
-
-Once Steps 2-4 are complete, type **"go"** and I'll generate:
-
-### Data Layer (Models & Repositories):
-- `data/model/User.kt`
-- `data/model/Report.kt`
-- `data/model/Announcement.kt`
-- `data/Result.kt`
-- `data/repository/AuthRepository.kt`
-- `data/repository/ReportRepository.kt`
-- `data/repository/AnnouncementRepository.kt`
-
-### UI Layer (Screens & ViewModels):
-- `ui/navigation/NavRoutes.kt`
-- `ui/navigation/AppNavigation.kt`
-- `ui/screens/auth/LoginScreen.kt`
-- `ui/screens/auth/SignUpScreen.kt`
-- `ui/screens/auth/AuthViewModel.kt`
-- `ui/screens/home/HomeScreen.kt`
-- `ui/screens/home/HomeViewModel.kt`
-- `ui/screens/sos/EmergencySOSScreen.kt`
-- `ui/screens/reports/ReportIssueScreen.kt`
-- `ui/screens/reports/MyReportsScreen.kt`
-- `ui/screens/reports/AllReportsScreen.kt`
-- `ui/screens/reports/ReportsViewModel.kt`
-- `ui/screens/announcements/AnnouncementsScreen.kt`
-- `ui/screens/announcements/CreateAnnouncementScreen.kt`
-- `ui/screens/announcements/AnnouncementsViewModel.kt`
-
-### Utilities:
-- `utils/Constants.kt`
-- `utils/Extensions.kt`
-- `ui/components/LoadingDialog.kt`
-- `ui/components/ErrorDialog.kt`
-
-### Updated Theme:
-- `ui/theme/Color.kt` (modern vibrant colors)
-
-### MainActivity:
-- Updated `MainActivity.kt` with navigation setup
-
----
-
-## 📁 File Locations
-
-```
-CampusOne/
-├── app/
-│   ├── google-services.json  ← MUST BE HERE!
-│   ├── build.gradle.kts      ← Updated ✓
-│   └── src/main/java/com/gih/campusone/
-│       ├── MainActivity.kt
-│       ├── data/...           ← Will be generated
-│       ├── ui/...             ← Will be generated
-│       └── utils/...          ← Will be generated
-├── build.gradle.kts           ← Updated ✓
-├── gradle/
-│   └── libs.versions.toml     ← Updated ✓
-├── FIREBASE_SETUP_GUIDE.md    ← Created ✓
-├── GRADLE_CHANGES.md          ← Created ✓
-└── README.md                  ← This file
-
+Student: student@test.com / test123
+Admin: admin@gih.edu / admin123
 ```
 
 ---
 
-## 🔐 Admin Configuration
+## 📊 Database Schema
 
-Default admin emails (will be in Constants.kt):
-```kotlin
-val ADMIN_EMAILS = setOf(
-    "admin@campusone.com",
-    "admin@gih.edu"
-)
 ```
+users/{uid}
+  ├── email: string
+  ├── role: string
+  └── createdAt: Timestamp
 
-**To add more admins:** Update this set in the generated code.
+reports/{reportId}
+  ├── category: string
+  ├── description: string
+  ├── status: string
+  ├── createdAt: Timestamp
+  └── createdByUid: string
 
----
-
-## 🎯 App Features to be Generated
-
-1. **Authentication** (Login/SignUp with role selection)
-2. **Home Dashboard** (Quick access cards)
-3. **Emergency SOS** (Contact list with call/email actions)
-4. **Report Issue** (Submit issues with categories)
-5. **My Reports** (User's report history with status)
-6. **All Reports** (Admin view with status updates)
-7. **Announcements** (View for all, create for admin)
-8. **Real-time Updates** (Firestore Flow integration)
-
----
-
-## ⚡ Quick Commands
-
-### Gradle Sync:
-```powershell
-cd "C:\Users\Jeevandeep Saini\AndroidStudioProjects\GIH\CampusOne"
-.\gradlew --refresh-dependencies
-```
-
-### Clean Build:
-```powershell
-.\gradlew clean build
-```
-
-### Check Dependencies:
-```powershell
-.\gradlew app:dependencies
+announcements/{announcementId}
+  ├── title: string
+  ├── message: string
+  └── createdAt: Timestamp
 ```
 
 ---
 
 ## 🐛 Troubleshooting
 
-**Issue:** "google-services.json not found"
-- **Fix:** Ensure file is in `app/` folder, then sync Gradle
+**"google-services.json missing"**
+- Download from Firebase Console → Project Settings
+- Place in `app/` directory
 
-**Issue:** Firebase initialization fails
-- **Fix:** Check package name in `google-services.json` matches `com.gih.campusone`
+**"Firestore index required"**
+- Click the error link to create index
+- Wait 2-5 minutes for build
 
-**Issue:** Gradle sync errors
-- **Fix:** File → Invalidate Caches → Restart
-
----
-
-## 📞 Documentation Links
-
-- [Firebase Console](https://console.firebase.google.com/)
-- [Firebase Auth Docs](https://firebase.google.com/docs/auth/android/start)
-- [Firestore Docs](https://firebase.google.com/docs/firestore/quickstart)
-- [Compose Navigation](https://developer.android.com/jetpack/compose/navigation)
+**"Permission denied"**
+- Check Firestore Security Rules
+- Ensure user is authenticated
 
 ---
 
-## ✨ Ready to Code?
+## 📄 License
 
-**Current Status:** Gradle configured ✓
+This project was created as part of the Great Indian Hackathon 2026 submission.
 
-**Next:** Complete Firebase setup (Steps 2-4), then type **"go"**
-
-**Estimated Setup Time:** 10-15 minutes
-**Estimated Code Generation Time:** 2-3 minutes
+© 2026 CampusOne. All rights reserved.
 
 ---
 
-🎉 **Let's build CampusOne!**
+## 👨‍💻 Developer
 
+**Jeevandeep Saini**  
+🎓 GIH ID: GIH020JEE  
+🏫 Institution: The NorthCap University  
+🐙 GitHub: [@jeevandeepsaini](https://github.com/jeevandeepsaini)
+
+---
+
+## 🙏 Acknowledgments
+
+- Firebase for backend infrastructure
+- Material Design 3 for UI components
+- Jetpack Compose team
+- Great Indian Hackathon organizers
+- The NorthCap University
+
+---
+
+**Built with ❤️ for the Great Indian Hackathon 2026**
+
+*Making campuses smarter, one feature at a time!* 🎓✨
 

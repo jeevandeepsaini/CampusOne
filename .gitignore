@@ -221,33 +221,15 @@ vcs.xml
 # ============================================
 # Documentation (Optional)
 # ============================================
+# Exclude all .md files except README.md
+*.md
+!README.md
+
 # Keep main documentation, exclude generated/personal notes
 *.md.backup
 docs/generated/
 TODO_PERSONAL.md
 NOTES_PRIVATE.md
-
-# Development documentation files (internal use only)
-PROJECT_COMPLETE.md
-TESTING_CHECKLIST.md
-FIREBASE_TROUBLESHOOTING.md
-FIRESTORE_INDEX_FIX.md
-CRASH_FIXES.md
-INDEX_BUILDING_STATUS.md
-REPORT_DETAIL_FIX.md
-GITHUB_READY.md
-GITHUB_UPLOAD_GUIDE.md
-ALL_REPORTS_COMPLETE.md
-ANNOUNCEMENTS_COMPLETE.md
-ABOUT_SCREEN_COMPLETE.md
-HOME_SCREEN_COMPLETE.md
-CREATE_REPORT_COMPLETE.md
-MY_REPORTS_COMPLETE.md
-LOGIN_SCREEN_COMPLETE.md
-SIGNUP_SCREEN_COMPLETE.md
-SOS_SCREEN_COMPLETE.md
-FIX_DOCS_REMOVAL.md
-README_GITHUB.md
 
 # ============================================
 # Personal Developer Files (Optional)
