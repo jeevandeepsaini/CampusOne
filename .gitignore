@@ -1,0 +1,255 @@
+# ===============================================================
+# CampusOne - Android/Kotlin Project .gitignore
+# Smart Campus Solution - Professional Configuration
+# Generated: February 8, 2026
+# ===============================================================
+
+# ============================================
+# CRITICAL: NEVER COMMIT THESE FILES!
+# ============================================
+# Firebase configuration (contains API keys)
+google-services.json
+
+# Keystore files (signing keys)
+*.jks
+*.keystore
+signing.properties
+keystore.properties
+release.jks
+debug.jks
+
+# API keys and secrets
+secrets.xml
+secrets.properties
+api_keys.properties
+
+# ============================================
+# Built Application Files
+# ============================================
+*.apk
+*.ap_
+*.aab
+
+# Files for ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# ============================================
+# Gradle Files
+# ============================================
+.gradle
+.gradle/
+build/
+/build
+*/build/
+
+# Gradle cache
+.gradle-test-kit/
+
+# ============================================
+# Local Configuration
+# ============================================
+local.properties
+
+# ============================================
+# Android Studio / IntelliJ IDEA
+# ============================================
+*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries
+.idea/jarRepositories.xml
+.idea/caches
+/.idea/caches
+/.idea/libraries
+.idea/modules.xml
+/.idea/modules.xml
+.idea/navEditor.xml
+/.idea/navEditor.xml
+/.idea/workspace.xml
+/.idea/assetWizardSettings.xml
+.idea/.name
+.idea/deploymentTargetDropDown.xml
+.idea/compiler.xml
+.idea/misc.xml
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+/captures
+.externalNativeBuild
+.cxx
+/local.properties
+
+# ============================================
+# External Native Build
+# ============================================
+.externalNativeBuild/
+.cxx/
+cmake-build-*/
+
+# ============================================
+# Generated Files
+# ============================================
+bin/
+gen/
+out/
+release/
+
+# ============================================
+# Proguard
+# ============================================
+proguard/
+proguard-rules.pro.bak
+
+# ============================================
+# Log Files
+# ============================================
+*.log
+firebase-debug.log
+
+# ============================================
+# Firebase
+# ============================================
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# ============================================
+# Crashlytics / Fabric
+# ============================================
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# ============================================
+# fastlane
+# ============================================
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
+fastlane/.env
+
+# ============================================
+# Lint
+# ============================================
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+lint-results.xml
+lint-results_files/
+*.lint
+
+# ============================================
+# Testing
+# ============================================
+test-results/
+test-output/
+*.test
+coverage/
+.coverage
+htmlcov/
+
+# ============================================
+# Android Profiling
+# ============================================
+*.hprof
+*.trace
+
+# ============================================
+# OS-Specific Files
+# ============================================
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ============================================
+# Backup Files
+# ============================================
+*.bak
+*.swp
+*.swo
+*~.nib
+*.orig
+*.rej
+.*.swp
+
+# ============================================
+# Version Control
+# ============================================
+vcs.xml
+.svn/
+.hg/
+
+# ============================================
+# Kotlin
+# ============================================
+*.kt.swp
+.kotlin/
+
+# ============================================
+# Compose
+# ============================================
+.compose-cache/
+
+# ============================================
+# Documentation (Optional)
+# ============================================
+# Keep main documentation, exclude generated/personal notes
+*.md.backup
+docs/generated/
+TODO_PERSONAL.md
+NOTES_PRIVATE.md
+
+# ============================================
+# Personal Developer Files (Optional)
+# ============================================
+# Uncomment if you want to keep these private:
+# MY_NOTES.md
+# TESTING_NOTES.md
+
+# ============================================
+# Miscellaneous
+# ============================================
+*.ipr
+*.iws
+.shelf
+.tmp
+temp/
+tmp/
+
+# ============================================
+# END OF .GITIGNORE
+# ============================================
+# Remember to:
+# 1. Keep google-services.json secure (never commit!)
+# 2. Keep keystore files secure (never commit!)
+# 3. Keep API keys secure (never commit!)
+# 4. Document your Firebase setup separately
+# ============================================
